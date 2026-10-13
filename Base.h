@@ -17,7 +17,7 @@ public:
 		z = arg_z;
 	}
 
-	VECTOR VGet()
+	VECTOR VGet() const
 	{
 		VECTOR v;
 		v.x = x;

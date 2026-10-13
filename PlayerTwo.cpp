@@ -21,6 +21,7 @@ void PlayerTwo::Init(const char* BasePath, const char* AnimPath)
 
 void PlayerTwo::Update()
 {
+    //  アニメーションを
     bool isMoveKey = false;
 
     // 左右キーで向きを変える

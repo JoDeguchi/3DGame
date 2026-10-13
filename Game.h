@@ -5,6 +5,7 @@
 #include "PlayerTwo.h"
 #include "Base.h"
 #include "Key.h"
+#include "Camera.h"
 
 class Game
 {
@@ -16,10 +17,9 @@ private:
     PlayerOne playerOne;
     PlayerTwo playerTwo;
 
-    Base camera_pos;
-    Base camera_look;
-
     KeyReader key;
+
+    Camera camera;
 
     //  人間切り替え
     bool Change = true;
