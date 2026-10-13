@@ -60,14 +60,14 @@ void Game::Update()
     // カメラをプレイヤーの後ろに配置
     camera_pos.Set(
         p.x,
-        p.y + 2.0f,
-        p.z - 30.0f
+        p.y + 5.0f,
+        p.z - 15.0f
     );
 
-    // プレイヤーの少し上を見る
+    // 見る座標
     camera_look.Set(
         p.x,
-        p.y + 10.0f,
+        p.y + 5.0f,
         p.z
     );
    

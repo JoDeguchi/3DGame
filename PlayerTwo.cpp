@@ -1,70 +1,86 @@
-#include "PlayerTwo.h"
+ï»¿#include "PlayerTwo.h"
 #include <cmath>
 
 void PlayerTwo::Init(const char* BasePath, const char* AnimPath)
 {
-    //  ƒ‚ƒfƒ‹“Ç‚İ‚İ
+    //  ãƒ¢ãƒ‡ãƒ«èª­ã¿è¾¼ã¿
     base_model = MV1LoadModel(BasePath);
     anim_model = MV1LoadModel(AnimPath);
 
-    //  ƒAƒjƒ[ƒVƒ‡ƒ“ƒAƒ^ƒbƒ`
+    //  ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚¢ã‚¿ãƒƒãƒ
     animIndex = MV1AttachAnim(base_model, 10, anim_model, FALSE);
     animTotalTime = MV1GetAttachAnimTotalTime(base_model, animIndex);
     animTime = 0.0f;
 
-    //  ‰ŠúˆÊ’u‚Æ‰ñ“]
+    //  åˆæœŸä½ç½®ã¨å›è»¢
     pos.Set(2.0f, 0.0f, 0.0f);
     rot.Set(0.0f, DX_PI_F, 0.0f);
 
-    MV1SetScale(base_model, VGet(0.01f, 0.01f, 0.01f));
+    MV1SetScale(base_model, VGet(0.01f, 0.014f, 0.01f));
 }
 
 void PlayerTwo::Update()
 {
+    bool isMoveKey = false;
 
-    // ¶‰EƒL[‚ÅŒü‚«‚ğ•Ï‚¦‚é
+    // å·¦å³ã‚­ãƒ¼ã§å‘ãã‚’å¤‰ãˆã‚‹
     if (CheckHitKey(KEY_INPUT_A))
     {
-        rot.y -= 0.05f;   // ¶‰ñ“]
+        rot.y -= 0.05f;   // å·¦å›è»¢
     }
     if (CheckHitKey(KEY_INPUT_D))
     {
-        rot.y += 0.05f;   // ‰E‰ñ“]
+        rot.y += 0.05f;   // å³å›è»¢
     }
 
-    // ƒvƒŒƒCƒ„[–{‘Ì‚ğ‘Oi‚³‚¹‚é
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æœ¬ä½“ã‚’å‰é€²ã•ã›ã‚‹
     if (CheckHitKey(KEY_INPUT_W))
     {
+        isMoveKey = true;
         animTime += 0.4f;
-        // rot.y ‚ÌŒü‚«‚É‡‚í‚¹‚ÄˆÚ“®
+        // rot.y ã®å‘ãã«åˆã‚ã›ã¦ç§»å‹•
         pos.x -= sinf(rot.y) * 0.1f;
         pos.z -= cosf(rot.y) * 0.1f;
 
     }
 
-    // ƒvƒŒƒCƒ„[–{‘Ì‚ğ‘Oi‚³‚¹‚é
+    // ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼æœ¬ä½“ã‚’å‰é€²ã•ã›ã‚‹
     if (CheckHitKey(KEY_INPUT_S))
     {
-        animTime += 0.2f;
-        // rot.y ‚ÌŒü‚«‚É‡‚í‚¹‚ÄˆÚ“®
+        isMoveKey = true;
+        animTime += 0.3f;
+        // rot.y ã®å‘ãã«åˆã‚ã›ã¦ç§»å‹•
         pos.x += sinf(rot.y) * 0.05f;
         pos.z += cosf(rot.y) * 0.05f;
 
     }
 
-    // ƒAƒjƒ[ƒVƒ‡ƒ“ƒ‹[ƒv
+    // ã‚­ãƒ¼ã‚’é›¢ã—ãŸå¾Œã¯ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã‚’æœ€å¾Œã¾ã§æµã—ã¦ã‹ã‚‰0ã«æˆ»ã™
     if (animTotalTime > 0.0f)
     {
-        while (animTime >= animTotalTime)
+        if (!isMoveKey && animTime > 0.0f)
         {
-            animTime -= animTotalTime;
+          
+            animTime = 0.0f;
+            /* animTime += 1.0f;
+           if (animTime >= animTotalTime)
+           {
+            //     ã“ã‚ŒãŒãƒ•ãƒ¬ãƒ¼ãƒ ï¼ã¾ã§ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³ã™ã‚‹ç”¨
+           }*/
+        }
+        else
+        {
+            while (animTime >= animTotalTime)
+            {
+                animTime -= animTotalTime;
+            }
         }
     }
 
-    // ƒAƒjƒ[ƒVƒ‡ƒ““K—p
+    // ã‚¢ãƒ‹ãƒ¡ãƒ¼ã‚·ãƒ§ãƒ³é©ç”¨
     MV1SetAttachAnimTime(base_model, animIndex, animTime);
 
-    // ˆÊ’uXV
+    // ä½ç½®æ›´æ–°
     pos.Set(pos.x, pos.y, pos.z);
     MV1SetPosition(base_model, pos.VGet());
     MV1SetRotationXYZ(base_model, rot.VGet());

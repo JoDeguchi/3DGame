@@ -16,11 +16,12 @@ void PlayerOne::Init(const char* BasePath, const char* AnimPath)
 	pos.Set(0.0f, 0.0f, 0.0f);
 	rot.Set(0.0f, DX_PI_F, 0.0f);
 
-    MV1SetScale(base_model, VGet(0.01f, 0.01f, 0.01f));
+    MV1SetScale(base_model, VGet(0.03f, 0.03f, 0.03f));
 }
 
 void PlayerOne::Update()
 {
+    bool isMoveKey = false;
 
     // 左右キーで向きを変える
     if (CheckHitKey(KEY_INPUT_A))
@@ -35,29 +36,36 @@ void PlayerOne::Update()
     // プレイヤー本体を前進させる
     if (CheckHitKey(KEY_INPUT_W))
     {
+        isMoveKey = true;
         animTime += 0.4f;
         // rot.y の向きに合わせて移動
         pos.x -= sinf(rot.y) * 0.1f;
         pos.z -= cosf(rot.y) * 0.1f;
-
     }
 
     // プレイヤー本体を前進させる
     if (CheckHitKey(KEY_INPUT_S))
     {
+        isMoveKey = true;
         animTime += 0.2f;
         // rot.y の向きに合わせて移動
         pos.x += sinf(rot.y) * 0.05f;
         pos.z += cosf(rot.y) * 0.05f;
-
     }
 
-    // アニメーションループ
+    // キーを離した後はアニメーションを最後まで流してから0に戻す
     if (animTotalTime > 0.0f)
     {
-        while (animTime >= animTotalTime)
+        if (!isMoveKey && animTime > 0.0f)
         {
-            animTime -= animTotalTime;
+            animTime = 0.0f;
+        }
+        else
+        {
+            while (animTime >= animTotalTime)
+            {
+                animTime -= animTotalTime;
+            }
         }
     }
 
