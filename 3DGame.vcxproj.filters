@@ -1,0 +1,69 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Human">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{6bb0d651-7b9c-419a-9280-f534cc3a0d3a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Camera">
+      <UniqueIdentifier>{56fbbc9f-e797-4736-896a-1c9d7da38e9e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Key">
+      <UniqueIdentifier>{1d12774c-53df-4e07-8642-869887b53b16}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Game.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerOne.cpp">
+      <Filter>Human</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerTwo.cpp">
+      <Filter>Human</Filter>
+    </ClCompile>
+    <ClCompile Include="Key.cpp">
+      <Filter>Key</Filter>
+    </ClCompile>
+    <ClCompile Include="Camera.cpp">
+      <Filter>Camera</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PlayerOne.h">
+      <Filter>Human</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerTwo.h">
+      <Filter>Human</Filter>
+    </ClInclude>
+    <ClInclude Include="Base.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Game.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Ground.h">
+      <Filter>Object</Filter>
+    </ClInclude>
+    <ClInclude Include="Key.h">
+      <Filter>Key</Filter>
+    </ClInclude>
+    <ClInclude Include="Camera.h">
+      <Filter>Camera</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
