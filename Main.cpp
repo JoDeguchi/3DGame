@@ -35,12 +35,16 @@ int APIENTRY wWinMain(
     // 背景色
     SetBackgroundColor(200, 200, 200);
 
+    SetCameraNearFar(0.1f, 3000.0f);
+    SetupCamera_Perspective(45.0f* DX_PI_F / 180.0f);
+
     Game game;          //  ゲームインスタンス
     game.Init();        //  初期化処理
 
     while (ProcessMessage() == 0)
     {
         ClearDrawScreen();   // 画面を消す
+        game.Input();        // 入力
         game.Update();       // 更新
         game.Draw();         // 描画
         ScreenFlip();        // 表示

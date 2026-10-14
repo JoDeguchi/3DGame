@@ -2,6 +2,9 @@
 #include "DxLib.h"
 #include "Base.h"
 
+/// <summary>
+/// カメラクラス
+/// </summary>
 class Camera
 {
 private:
@@ -10,18 +13,14 @@ private:
     float lerpSpeed = 0.08f;    //  プレイヤー切り替わるスピード
 
 public:
-
-    //  初期化
-    void Init(const VECTOR& initPos,const VECTOR& initLook,float nearClip = 0.1f,
-        float farClip = 3000.0f,float fovDeg = 45.0f)
+    Camera(){}
+    //  コンストラクタ
+    Camera(const VECTOR& initPos, const VECTOR& initLook)
     {
         pos.Set(initPos.x, initPos.y, initPos.z);
         look.Set(initLook.x, initLook.y, initLook.z);
-
-        SetCameraNearFar(nearClip, farClip);
-        SetupCamera_Perspective(fovDeg * DX_PI_F / 180.0f);
     }
-
+   
     //  プレイヤー切り替わるときのカメラスピード（補間速度）
     void SetLerpSpeed(float speed)
     {
@@ -40,7 +39,7 @@ public:
         look.z += (targetLook.z - look.z) * lerpSpeed;
     }
 
-    //  カメラ設定
+    //  カメラ設置
     void Apply()
     {
         SetCameraPositionAndTarget_UpVecY(pos.VGet(), look.VGet());

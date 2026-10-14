@@ -1,19 +1,14 @@
 ﻿#include "Game.h"
 
+//  初期化処理
 void Game::Init()
 {
     // ライト設定
     SetLightEnable(TRUE);
     SetLightDirection(VGet(0.0f, -1.0f, 1.0f));
 
-    // カメラ初期化
-    camera.Init(
-        VGet(0.0f, 50.5f, -5.5f),   // 初期位置
-        VGet(0.0f, 0.0f, 0.0f),     // 初期注視点
-        0.1f,
-        3000.0f,
-        45.0f
-    );
+    //  カメラ初期化
+    camera = Camera(VGet(0.0f, 50.5f, -5.5f), VGet(0.0f, 0.0f, 0.0f));
 
     //  地面初期化
     ground = Ground("data/ground.mv1",0.0f,0.0f,0.0f);
@@ -22,38 +17,46 @@ void Game::Init()
     playerTwo.Init("data/human.mv1", "data/Running.mv1");
 }
 
+//  入力処理
 void Game::Input()
 {
-    //key.Read();
+    //  キー読み込み
+    key.Read();
 }
 
+//  更新処理
 void Game::Update()
 {
-    key.Read();
-
+    //----------------------------------
+    //  Rキーでチェンジ
+    //-----------------------------------
     if (key.CheckKeyRelease(KEY_INPUT_R))
         Change = !Change;
 
-    if (Change)
+    if (Change) {
         playerOne.Update();
-    else
+    }
+    else {
         playerTwo.Update();
-
+    }
+    //------------------------------------------------------
+    //  カメラの位置を調整（プレイヤーそれぞれのすぐ後ろに）
+    //-----------------------------------------------------
     VECTOR p = Change ? playerOne.GetPos() : playerTwo.GetPos();
 
     VECTOR targetPos = VGet(p.x, p.y + 5.0f, p.z - 15.0f);
     VECTOR targetLook = VGet(p.x, p.y + 5.0f, p.z);
 
     camera.Update(targetPos, targetLook);
+    camera.Apply();
 }
 
+//  描画処理
 void Game::Draw()
 {
-    camera.Apply();
-    ground.Draw();
-
-    playerOne.Draw();
-    playerTwo.Draw();
+    ground.Draw();      //  地面
+    playerOne.Draw();   //  デブ
+    playerTwo.Draw();   //  ガリ
 }
 
 void Game::Release()

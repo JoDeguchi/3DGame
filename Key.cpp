@@ -1,11 +1,11 @@
-#include "Key.h"
+ï»¿#include "Key.h"
 
 KeyReader::KeyReader()
 {
-	// ƒL[ó‘Ô”z—ñ‚ğ‰Šú‰»
+	// ã‚­ãƒ¼çŠ¶æ…‹é…åˆ—ã‚’åˆæœŸåŒ–
 	for (int cnt = 0; cnt < 256; cnt++)
 	{
-		this->key_state_arr[cnt] = 0;
+		key_state_arr[cnt] = 0;
 		old_key_state_arr[cnt] = 0;
 	}
 	key_press = false;
@@ -31,25 +31,28 @@ void KeyReader::Read()
 	}
 }
 
-bool KeyReader::CheckKey(int arg_key_code)
-{
-	// w’è‚³‚ê‚½ƒL[‚Ìó‘Ô‚ğƒ`ƒFƒbƒN
-	if (this->key_state_arr[arg_key_code] == 1 && old_key_state_arr[arg_key_code] == 0)
-	{
-		// ‰Ÿ‚³‚ê‚Ä‚¢‚ê‚Îtrue‚ğ•Ô‚·
-		return true;
-	}
-	// ‰Ÿ‚³‚ê‚Ä‚¢‚È‚¯‚ê‚Îfalse‚ğ•Ô‚·
-	return false;
-}
 
-// ƒL[‚ğ—£‚µ‚½uŠÔ
+// æŒ‡å®šã‚­ãƒ¼ã‚’é›¢ã—ãŸç¬é–“
 bool KeyReader::CheckKeyRelease(int arg_key_code)
 {
 	return key_state_arr[arg_key_code] == 0
 		&& old_key_state_arr[arg_key_code] != 0;
 }
 
+//	æŒ‡å®šã‚­ãƒ¼ã‚’æŠ¼ã—ãŸç¬é–“
+bool KeyReader::CheckKey(int arg_key_code)
+{
+	// æŒ‡å®šã•ã‚ŒãŸã‚­ãƒ¼ã®çŠ¶æ…‹ã‚’ãƒã‚§ãƒƒã‚¯
+	if (key_state_arr[arg_key_code] == 1 && old_key_state_arr[arg_key_code] == 0)
+	{
+		// æŠ¼ã•ã‚Œã¦ã„ã‚Œã°trueã‚’è¿”ã™
+		return true;
+	}
+	// æŠ¼ã•ã‚Œã¦ã„ãªã‘ã‚Œã°falseã‚’è¿”ã™
+	return false;
+}
+
+//	ä½•ã‹ã§ã‚‚ã‚­ãƒ¼ã‚’æŠ¼ã—ãŸã‚‰
 bool KeyReader::KeyPress()
 {
 	return this->key_press;

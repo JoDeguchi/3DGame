@@ -1,46 +1,30 @@
-#pragma once
+ï»¿#pragma once
 #pragma once
 #include "DxLib.h"		// DxLib
 
 /// <summary>
-/// ƒL[ƒŠ[ƒ_[ƒNƒ‰ƒX
+/// ã‚­ãƒ¼ãƒªãƒ¼ãƒ€ãƒ¼ã‚¯ãƒ©ã‚¹
 /// </summary>
 class KeyReader
 {
-	/// <summary>
-	/// ƒL[‚Ìó‘Ô”z—ñ
-	/// </summary>
+	//	ã‚­ãƒ¼ã®çŠ¶æ…‹é…åˆ—
 	char key_state_arr[256];
 	char old_key_state_arr[256];
-	/// <summary>
-	/// ƒL[‚ª‰Ÿ‚³‚ê‚½‚©
-	/// </summary>
+	//	ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã‹
 	bool key_press = false;
 public:
-
-	/// <summary>
-	/// ƒRƒ“ƒXƒgƒ‰ƒNƒ^[
-	/// </summary>
+	//	ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿
 	KeyReader();
 
-	/// <summary>
-	/// ƒL[“ÇiˆêŠ‡j
-	/// </summary>
+	//	ã‚­ãƒ¼èª­ã¿è¾¼ã¿
 	void Read();
 
-	/// <summary>
-	/// ƒL[‚Ìó‘ÔŠm”F
-	/// </summary>
-	/// <param name="arg_key_code">Šm”F‚·‚éƒL[‚ÌƒR[ƒh</param>
-	/// <returns>ƒL[‚Ìó‘Ô</returns>
+	//	ã‚­ãƒ¼ã®çŠ¶æ…‹ç¢ºèª
 	bool CheckKey(int arg_key_code);
 
-	// ƒL[‚ğ—£‚µ‚½uŠÔ
+	// ã‚­ãƒ¼ã‚’é›¢ã—ãŸç¬é–“
 	bool CheckKeyRelease(int arg_key_code);
 
-	/// <summary>
-	/// ƒL[‚ª‰Ÿ‚³‚ê‚½‚©‚Ìƒ`ƒFƒbƒN
-	/// </summary>
-	/// <returns>ó‘Ô</returns>
+	//	ã‚­ãƒ¼ãŒæŠ¼ã•ã‚ŒãŸã‹
 	bool KeyPress();
 };

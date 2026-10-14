@@ -25,9 +25,4 @@ public:
 		v.z = z;
 		return v;
 	}
-
-	/*VECTOR Get() const
-	{
-		return VGet(x, y, z);
-	}*/
 };
