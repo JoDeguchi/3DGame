@@ -23,16 +23,6 @@ void PlayerOne::Update()
 {
     bool isMoveKey = false;
 
-    // 左右キーで向きを変える
-    if (CheckHitKey(KEY_INPUT_A))
-    {
-        rot.y -= 0.05f;   // 左回転
-    }
-    if (CheckHitKey(KEY_INPUT_D))
-    {
-        rot.y += 0.05f;   // 右回転
-    }
-
     // プレイヤー本体を前進させる
     if (CheckHitKey(KEY_INPUT_W))
     {
@@ -78,6 +68,11 @@ void PlayerOne::Update()
     MV1SetRotationXYZ(base_model, rot.VGet());
 }
 
+void PlayerOne::AddRotation(float add)
+{
+    rot.y += add;
+}
+
 void PlayerOne::Draw()
 {
     if (base_model != -1)
@@ -88,4 +83,10 @@ VECTOR PlayerOne::GetPos()
 {
     return pos.VGet();
 }
+
+float PlayerOne::GetRotY()
+{
+    return rot.y;
+}
+
 

@@ -23,7 +23,9 @@ public:
 
 	void Init(const char* BasePath, const char* AnimPath);
 	void Update();
+	void AddRotation(float add);
 	void Draw();
 	VECTOR GetPos();
+	float GetRotY();
 	
 };

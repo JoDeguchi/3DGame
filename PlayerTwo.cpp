@@ -98,3 +98,7 @@ VECTOR PlayerTwo::GetPos()
     return pos.VGet();
 }
 
+float PlayerTwo::GetRotY()
+{
+    return rot.y;
+}

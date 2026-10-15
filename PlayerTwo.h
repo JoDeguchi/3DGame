@@ -1,9 +1,9 @@
-#pragma once
+ï»¿#pragma once
 #pragma once
 #include "Base.h"
 #include "PlayerOne.h"
 
-//	2‘Ì–Ú‚ÌƒvƒŒƒCƒ„[
+//	2ä½“ç›®ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼
 class PlayerTwo:public PlayerOne
 {
 
@@ -14,5 +14,6 @@ public:
 	void Update();
 	void Draw();
 	VECTOR GetPos();
+	float GetRotY();
 
 };

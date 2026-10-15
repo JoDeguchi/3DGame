@@ -48,6 +48,11 @@ int APIENTRY wWinMain(
         game.Update();       // 更新
         game.Draw();         // 描画
         ScreenFlip();        // 表示
+
+        if (CheckHitKey(KEY_INPUT_ESCAPE))
+        {
+            break;
+        }
     }
 
 

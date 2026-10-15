@@ -6,6 +6,7 @@
 #include "Base.h"
 #include "Key.h"
 #include "Camera.h"
+#include "Mouse.h"
 
 class Game
 {
@@ -18,6 +19,7 @@ private:
     PlayerTwo playerTwo;
 
     KeyReader key;
+    Mouse* mouse;
 
     Camera camera;
 

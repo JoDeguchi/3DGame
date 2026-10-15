@@ -19,7 +19,7 @@
     <Filter Include="Camera">
       <UniqueIdentifier>{56fbbc9f-e797-4736-896a-1c9d7da38e9e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Key">
+    <Filter Include="Key Mouse">
       <UniqueIdentifier>{1d12774c-53df-4e07-8642-869887b53b16}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -37,7 +37,7 @@
       <Filter>Human</Filter>
     </ClCompile>
     <ClCompile Include="Key.cpp">
-      <Filter>Key</Filter>
+      <Filter>Key Mouse</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -57,10 +57,13 @@
       <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="Key.h">
-      <Filter>Key</Filter>
+      <Filter>Key Mouse</Filter>
     </ClInclude>
     <ClInclude Include="Camera.h">
       <Filter>Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Mouse.h">
+      <Filter>Key Mouse</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

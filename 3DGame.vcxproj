@@ -155,6 +155,7 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="Ground.h" />
     <ClInclude Include="Key.h" />
+    <ClInclude Include="Mouse.h" />
     <ClInclude Include="PlayerOne.h" />
     <ClInclude Include="PlayerTwo.h" />
   </ItemGroup>

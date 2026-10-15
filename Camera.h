@@ -30,13 +30,8 @@ public:
     // 追従更新
     void Update(const VECTOR& targetPos, const VECTOR& targetLook)
     {
-        pos.x += (targetPos.x - pos.x) * lerpSpeed;
-        pos.y += (targetPos.y - pos.y) * lerpSpeed;
-        pos.z += (targetPos.z - pos.z) * lerpSpeed;
-
-        look.x += (targetLook.x - look.x) * lerpSpeed;
-        look.y += (targetLook.y - look.y) * lerpSpeed;
-        look.z += (targetLook.z - look.z) * lerpSpeed;
+        pos.Set(targetPos.x, targetPos.y, targetPos.z);
+        look.Set(targetLook.x, targetLook.y, targetLook.z);
     }
 
     //  カメラ設置
