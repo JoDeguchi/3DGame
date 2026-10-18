@@ -39,6 +39,9 @@
     <ClCompile Include="Key.cpp">
       <Filter>Key Mouse</Filter>
     </ClCompile>
+    <ClCompile Include="Cube.cpp">
+      <Filter>Object</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="PlayerOne.h">
@@ -64,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="Mouse.h">
       <Filter>Key Mouse</Filter>
+    </ClInclude>
+    <ClInclude Include="Cube.h">
+      <Filter>Object</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

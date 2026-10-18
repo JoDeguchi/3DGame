@@ -1,76 +1,116 @@
 ﻿#include "PlayerOne.h"
 #include <cmath>
 
-void PlayerOne::Init(const char* BasePath, const char* AnimPath)
+void PlayerOne::Init()
 {
-    //  モデル読み込み
-    base_model = MV1LoadModel(BasePath);
-    anim_model = MV1LoadModel(AnimPath);
+    //  各モデル読み込み
+    base_model = MV1LoadModel("data/debu/BigMan.mv1");
+    walk_model = MV1LoadModel("data/debu/BigManWalk.mv1");
+    push_model = MV1LoadModel("data/debu/push.mv1");
 
-    //  アニメーションアタッチ
-    animIndex = MV1AttachAnim(base_model, 0, anim_model, FALSE);
-    animTotalTime = MV1GetAttachAnimTotalTime(base_model, animIndex);
-    animTime = 0.0f;
-
-    //  初期位置と回転
-	pos.Set(0.0f, 0.0f, 0.0f);
-	rot.Set(0.0f, DX_PI_F, 0.0f);
-
+    // 初期位置
+    pos.Set(0.0f, 0.0f, 0.0f);
+    rot.Set(0.0f, DX_PI_F, 0.0f);
+    //  スケール調整
     MV1SetScale(base_model, VGet(0.03f, 0.03f, 0.03f));
+
+    // 最初は歩きアニメをアタッチ
+    AttachWalkAnim();
 }
 
-void PlayerOne::Update()
+//  更新処理（引数：歩くスピード,アニメスピード）
+void PlayerOne::Update(float speed, float anim_speed)
 {
     bool isMoveKey = false;
 
-    // プレイヤー本体を前進させる
-    if (CheckHitKey(KEY_INPUT_W))
+    // 押すアニメーション中は移動しない
+    if (!isPushing)
     {
-        isMoveKey = true;
-        animTime += 0.4f;
-        // rot.y の向きに合わせて移動
-        pos.x -= sinf(rot.y) * 0.1f;
-        pos.z -= cosf(rot.y) * 0.1f;
-    }
-
-    // プレイヤー本体を前進させる
-    if (CheckHitKey(KEY_INPUT_S))
-    {
-        isMoveKey = true;
-        animTime += 0.2f;
-        // rot.y の向きに合わせて移動
-        pos.x += sinf(rot.y) * 0.05f;
-        pos.z += cosf(rot.y) * 0.05f;
-    }
-
-    // キーを離した後はアニメーションを最後まで流してから0に戻す
-    if (animTotalTime > 0.0f)
-    {
-        if (!isMoveKey && animTime > 0.0f)
+        if (CheckHitKey(KEY_INPUT_W))
         {
-            animTime = 0.0f;
+            isMoveKey = true;
+            pos.x -= sinf(rot.y) * speed;
+            pos.z -= cosf(rot.y) * speed;
         }
-        else
+
+        if (CheckHitKey(KEY_INPUT_S))
         {
-            while (animTime >= animTotalTime)
-            {
-                animTime -= animTotalTime;
-            }
+            isMoveKey = true;
+            pos.x += sinf(rot.y) * speed;
+            pos.z += cosf(rot.y) * speed;
         }
     }
 
-    // アニメーション適用
-    MV1SetAttachAnimTime(base_model, animIndex, animTime);
+    // アニメーション時間の更新
+    if (isPushing || isMoveKey)
+    {
+        currentAnimTime += anim_speed;
 
-    // 位置更新
-    pos.Set(pos.x, pos.y, pos.z);
+        while (currentAnimTime >= currentAnimTotalTime)
+            currentAnimTime -= currentAnimTotalTime;
+    }
+    else
+    {
+        // 止まっている場合は先頭フレームで静止
+        currentAnimTime = 0.0f;
+    }
+
+    MV1SetAttachAnimTime(base_model, currentAnimIndex, currentAnimTime);
+
+    // モデル位置反映
     MV1SetPosition(base_model, pos.VGet());
     MV1SetRotationXYZ(base_model, rot.VGet());
+}
+
+
+//  歩きアニメをアタッチ
+void PlayerOne::AttachWalkAnim()
+{
+    if (currentAnimIndex != -1)
+        MV1DetachAnim(base_model, currentAnimIndex);
+
+    currentAnimIndex = MV1AttachAnim(base_model, 0, walk_model, FALSE);
+
+    currentAnimTotalTime = MV1GetAttachAnimTotalTime(base_model, currentAnimIndex);
+    currentAnimTime = 0.0f;
+}
+
+//   押しアニメをアタッチ
+void PlayerOne::AttachPushAnim()
+{
+    if (currentAnimIndex != -1)
+        MV1DetachAnim(base_model, currentAnimIndex);
+
+    currentAnimIndex = MV1AttachAnim(base_model, 0, push_model, FALSE);
+
+    currentAnimTotalTime = MV1GetAttachAnimTotalTime(base_model, currentAnimIndex);
+    currentAnimTime = 0.0f;
 }
 
 void PlayerOne::AddRotation(float add)
 {
     rot.y += add;
+}
+
+void PlayerOne::PushBack()
+{
+    // rot.y の逆方向に少し戻す
+    pos.x += sinf(rot.y) * 0.01f;
+    pos.z += cosf(rot.y) * 0.01f;
+
+    MV1SetPosition(base_model, pos.VGet());
+}
+
+void PlayerOne::SetPush(bool flag)
+{
+    if (flag == isPushing) return; // 状態が変わらないなら何もしない
+
+    isPushing = flag;
+
+    if (isPushing)
+        AttachPushAnim();
+    else
+        AttachWalkAnim();
 }
 
 void PlayerOne::Draw()
@@ -89,4 +129,26 @@ float PlayerOne::GetRotY()
     return rot.y;
 }
 
+bool PlayerOne::GetPush()
+{
+    return isPushing;
+}
 
+// 向いている方向に前進する
+void PlayerOne::MoveForward(float speed)
+{
+    pos.x -= sinf(rot.y) * speed;
+    pos.z -= cosf(rot.y) * speed;
+
+    MV1SetPosition(base_model, pos.VGet());
+}
+
+void PlayerOne::SetPos(VECTOR newPos)
+{
+    pos.Set(newPos.x, newPos.y, newPos.z);
+
+    if (base_model != -1)
+    {
+        MV1SetPosition(base_model, newPos);
+    }
+}

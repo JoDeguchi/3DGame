@@ -33,7 +33,7 @@ int APIENTRY wWinMain(
     SetWriteZBuffer3D(TRUE);
 
     // 背景色
-    SetBackgroundColor(200, 200, 200);
+    SetBackgroundColor(0, 255, 255);
 
     SetCameraNearFar(0.1f, 3000.0f);
     SetupCamera_Perspective(45.0f* DX_PI_F / 180.0f);

@@ -11,7 +11,7 @@ private:
 public:
 
 	void Init(const char* BasePath, const char* AnimPath);
-	void Update();
+	void Update(float speed,float anim_speed);
 	void Draw();
 	VECTOR GetPos();
 	float GetRotY();

@@ -19,29 +19,19 @@ void PlayerTwo::Init(const char* BasePath, const char* AnimPath)
     MV1SetScale(base_model, VGet(0.01f, 0.014f, 0.01f));
 }
 
-void PlayerTwo::Update()
+void PlayerTwo::Update(float speed,float anim_speed)
 {
     //  アニメーションを
     bool isMoveKey = false;
-
-    // 左右キーで向きを変える
-    if (CheckHitKey(KEY_INPUT_A))
-    {
-        rot.y -= 0.05f;   // 左回転
-    }
-    if (CheckHitKey(KEY_INPUT_D))
-    {
-        rot.y += 0.05f;   // 右回転
-    }
 
     // プレイヤー本体を前進させる
     if (CheckHitKey(KEY_INPUT_W))
     {
         isMoveKey = true;
-        animTime += 0.4f;
+        animTime += anim_speed;
         // rot.y の向きに合わせて移動
-        pos.x -= sinf(rot.y) * 0.1f;
-        pos.z -= cosf(rot.y) * 0.1f;
+        pos.x -= sinf(rot.y) * speed;
+        pos.z -= cosf(rot.y) * speed;
 
     }
 
@@ -49,10 +39,10 @@ void PlayerTwo::Update()
     if (CheckHitKey(KEY_INPUT_S))
     {
         isMoveKey = true;
-        animTime += 0.3f;
+        animTime += anim_speed;
         // rot.y の向きに合わせて移動
-        pos.x += sinf(rot.y) * 0.05f;
-        pos.z += cosf(rot.y) * 0.05f;
+        pos.x += sinf(rot.y) * speed;
+        pos.z += cosf(rot.y) * speed;
 
     }
 
